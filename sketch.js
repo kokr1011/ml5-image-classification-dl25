@@ -203,7 +203,12 @@ function addUploadSection() {
   });
 
   function handleFile(file) {
-  if (file && file.type.startsWith('image/')) {
+     // Überprüfen, ob eine Datei existiert und ob es ein Bild ist
+  if (!file || !file.type.startsWith('image/')) {
+    alert('Please upload a valid image file (e.g., JPG, PNG).');
+    return;
+  }
+   // Falls bereits ein vorheriges hochgeladenes Bild und Chart existieren: entfernen
     if (uploadedRow) {
       uploadedRow.remove();  // Altes Ergebnis sofort entfernen
       uploadedRow = null;    // Zeiger zurücksetzen
@@ -217,7 +222,7 @@ function addUploadSection() {
     };
     reader.readAsDataURL(file);
   }
-}
+
 
   classifyButton.onclick = () => {
     if (previewImg.src) {
