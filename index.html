@@ -12,7 +12,7 @@
   <script src="https://unpkg.com/ml5@1/dist/ml5.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <style>
+<!--   <style>
     body {
       font-family: 'Roboto', Arial, sans-serif;
       background-color: #fafafa;
@@ -40,7 +40,7 @@
     #outer-container {
       display: none; /* WICHTIG: Verstecken bis alles fertig */
     }
-  </style>
+  </style> -->
 </head>
 
 <body>
@@ -56,54 +56,84 @@
       </tbody>
     </table>
 
-    <section>
-      <h2>Discussion</h2>
-      <p>The pretrained model correctly classified familiar everyday objects, places, landscapes, and representatives of flora and fauna in most cases.
-However, accurate classification generally required photos with good contrast, high resolution, and a clear depiction of the main object.
-It was particularly striking that even a partial view, such as a fragment of a tandem bicycle, led to a highly accurate classification, although even the human eye struggles to detect the second set of pedals and handlebars.
-On the other hand, the model's performance declined when images were more abstract, contained multiple objects, or when the objects showed a similar appearance but belonged to different classes.
-For example, classifying the Laika dog breed proved difficult, as it is easily confused with other breeds or even wolves.
-Several test images of this breed consistently resulted in misclassifications.
-A notable failure also appeared in the recognition of the Eiffel Tower, where neither standard photographs nor mosaic representations were correctly classified.
-This suggests that both landmarks and famous structures are not reliably recognized by the model.
-Non-standard visual forms and artistic styles appear to pose a considerable challenge for accurate classification.
-Overall, the experiment demonstrated both the strengths and the limitations of pretrained models when dealing with varying image complexities.</p>
-    </section>
+    <section id="project-documentation">
 
-    <section id="technical-documentation">
-      <h2>1) Technical Documentation</h2>
+  <h1>📷 Image Classification Web App using MobileNet and ml5.js</h1>
 
-      <h3>Frameworks and Libraries Used:</h3>
+  <h2>Overview</h2>
+  <p>
+    This project implements an interactive web application that performs real-time image classification using the MobileNet model via the ml5.js library.
+    Users can classify a predefined set of images or upload their own images through a modern, Material Design-based user interface.
+  </p>
+
+  <h2>1) Technical Documentation</h2>
+
+  <h3>Frameworks and Libraries Used:</h3>
+  <ul>
+    <li><strong><a href="https://p5js.org/" target="_blank">p5.js</a></strong>: Used for basic image handling, DOM manipulation, and preload functionality.</li>
+    <li><strong><a href="https://ml5js.org/" target="_blank">ml5.js</a></strong>: Simplified machine learning library built on top of TensorFlow.js, used for loading the pretrained MobileNet model and performing image classification.</li>
+    <li><strong><a href="https://www.chartjs.org/" target="_blank">Chart.js</a></strong>: Used to visualize classification results as bar charts, showing the confidence levels of the top three predictions.</li>
+    <li><strong><a href="https://docs.github.com/en/pages" target="_blank">GitHub Pages</a></strong>: Hosting platform for static sites, used to make the application publicly accessible.</li>
+  </ul>
+
+  <h3>Technical Specificities:</h3>
+  <ul>
+    <li>The application dynamically generates a structured table layout, displaying images and corresponding classification charts side-by-side.</li>
+    <li>Drag & Drop and traditional file upload mechanisms are supported for user-uploaded images, seamlessly integrated into the same layout structure as the static images.</li>
+    <li>Uploaded images overwrite previous uploads, maintaining a clean and minimal interface without duplication.</li>
+    <li>All images (static and uploaded) are presented uniformly (300x300px) to ensure a consistent user experience and visual clarity.</li>
+    <li>Validation ensures only JPG and PNG files under 5MB can be uploaded, with visible alerts if validation fails.</li>
+    <li>The app is fully responsive and optimized for different screen sizes.</li>
+  </ul>
+
+  <h2>2) Subject-Specific Documentation</h2>
+
+  <h3>Implementation of Logic and Key Elements:</h3>
+  <ul>
+    <li>
+      The solution classifies a predefined set of static images using a pretrained MobileNet model from ml5.js, dynamically displaying the results in a structured and responsive table layout.
+    </li>
+    <li>
+      Image classification is automatically triggered in the <code>setup()</code> function after preloading images. Each image and its corresponding chart are appended as a new table row, maintaining a clear and consistent structure.
+    </li>
+    <li>
+      Labels under each image provide additional descriptive context. Classification results are visualized using bar charts that indicate the top three predictions and their respective confidence percentages.
+    </li>
+    <li>
+      A dedicated upload section allows users to classify their own images, ensuring visual and interactive consistency with the predefined examples.
+    </li>
+    <li>
+      Visual design follows Google's Material Design guidelines: primary and accent colors, rounded shapes, consistent elevation (shadows), and responsive layouts are used to enhance clarity and usability.
+    </li>
+    <li>
+      Interaction design is guided by the ISO 9241-110 Human-Computer Interaction principles, particularly emphasizing:
       <ul>
-        <li><strong><a href="https://editor.p5js.org/" target="_blank">p5.js Editor</a></strong>: Used to handle basic image operations, DOM manipulation, and dynamic rendering of images within the webpage.</li>
-        <li><strong><a href="https://ml5js.org/" target="_blank">ml5.js</a></strong>: Utilized for loading the pretrained MobileNet model and performing image classification in the browser using simple, accessible syntax.</li>
-        <li><strong><a href="https://www.chartjs.org/" target="_blank">Chart.js</a></strong>: Applied to visualize classification results in bar charts, providing a clear and intuitive representation of the confidence levels for the top predictions.</li>
-        <li><strong><a href="https://docs.github.com/en/pages" target="_blank">GitHub Pages</a></strong>: GitHub Pages is a static site hosting service that takes HTML, CSS, and JavaScript files straight from a repository on GitHub, optionally runs the files through a build process, and publishes a website.</li>
+        <li><strong>Suitability for the task:</strong> Simple, direct workflows for image upload and classification.</li>
+        <li><strong>Self-descriptiveness:</strong> Clear labels and immediate feedback after actions.</li>
+        <li><strong>Error tolerance:</strong> Validation for supported formats and file sizes with user-friendly error messages.</li>
+        <li><strong>Feedback and help:</strong> Visible hints about supported file types and immediate success notifications after classification.</li>
       </ul>
+    </li>
+    <li>
+      Testing revealed that familiar, high-contrast objects were classified accurately, whereas abstract or complex scenes, such as mosaics or certain dog breeds, led to reduced accuracy.
+    </li>
+    <li>
+      Sources and references include official documentation from <strong>ml5.js</strong>, <strong>p5.js</strong>, and <strong>Chart.js</strong>, along with design principles from <strong>Google's Material Design Guidelines</strong>.
+    </li>
+  </ul>
 
-      <h3>Technical Specificities:</h3>
-      <ul>
-        <li>The application dynamically generates a table structure in the DOM, displaying images and corresponding classification charts side-by-side.</li>
-        <li>Drag & Drop functionality and manual file selection are both supported for user-uploaded images, using the same flow and layout as the static images.</li>
-        <li>Uploaded images immediately overwrite the previous result, ensuring a clean interface without duplicate entries.</li>
-        <li>Uploaded images are classified after being displayed in a consistent 300x300px format, maintaining visual uniformity with the static images.</li>
-        <li><strong>Deployment:</strong> The application is publicly hosted using <strong>GitHub Pages</strong>, ensuring accessibility from any browser without the need for server-side processing.</li>
-      </ul>
-    </section>
+  <h2>3) Observations and Discussion</h2>
 
-    <section id="subject-specific-documentation">
-      <h2>2) Subject-Specific Documentation</h2>
+  <p>
+    The pretrained model accurately classified common everyday objects, landscapes, and typical animal species in most cases. High-quality input images with good contrast and clear object depiction greatly improved classification performance.
+    Interestingly, even partial views, such as a fragment of a tandem bicycle, yielded correct results, despite being difficult for the human eye.
+    However, classification accuracy declined with abstract, artistic representations or when images contained multiple objects or classes that visually resemble each other.
+    For instance, the Laika dog breed was often misclassified due to its similarity to other dogs or even wolves. Additionally, the model struggled with landmark identification, such as the Eiffel Tower, especially in artistic formats like mosaics.
+    Overall, the project demonstrates both the capabilities and the limitations of using pretrained machine learning models for real-world image classification.
+  </p>
 
-      <h3>Implementation of Logic and Key Elements:</h3>
-      <ul>
-        <li>The solution classifies a predefined set of static images using a pretrained MobileNet model and dynamically displays the results in a structured table layout.</li>
-        <li>Image classification is triggered in the <code>setup()</code> function after preloading images; once classified, each image and its corresponding chart are appended as a new table row.</li>
-        <li>Labels under each image provide descriptive captions, while the classification results are visualized using bar charts to indicate the confidence percentages of the top three predictions.</li>
-        <li>A separate upload section allows users to classify their own images, maintaining the same appearance and interaction flow as with static images.</li>
-        <li>Sources include the official <strong>ml5.js</strong>, <strong>p5.js</strong>, and <strong>Chart.js</strong> documentation, with additional design choices based on principles from Google's Material Design Guidelines.</li>
-        <li>Observations revealed that familiar, clear, and high-contrast objects are classified accurately, while abstract, artistic, or landmark images like the Eiffel Tower are not reliably recognized by the model.</li>
-      </ul>
-    </section>
+</section>
+
   </div>
 
   <!-- Ihr Sketch -->
