@@ -183,4 +183,21 @@ maintainAspectRatio: false
       }
     }
   });
+  
+  // === Dritte Überschrift (nach dem letzten Bild) ===
+  if (i === images.length - 1) { // Nach dem letzten Bild
+    const finalHeadingRow = document.createElement('tr');
+    const finalHeadingCell = document.createElement('td');
+    finalHeadingCell.colSpan = 2;
+    finalHeadingCell.style.textAlign = 'left';
+    finalHeadingCell.style.padding = '30px 10px 10px 10px';
+
+    const finalHeading = document.createElement('h2');
+    finalHeading.textContent = 'Eigenes Bild zum Klassifizieren hochladen';
+    finalHeading.style.margin = '0';
+
+    finalHeadingCell.appendChild(finalHeading);
+    finalHeadingRow.appendChild(finalHeadingCell);
+    tableBody.appendChild(finalHeadingRow);
+  }
 }
