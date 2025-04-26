@@ -8,7 +8,7 @@ const captions = [
   "Crane",
   "Tandem bicycle",
   "Labrador retriever",
-  "Laika",
+  "West Siberian Laika",
   "Runner",
   "Eiffel tower mosaic"
 ];
@@ -19,7 +19,7 @@ function preload() {
   images.push(loadImage('images/bird.jpg'));
   images.push(loadImage('images/bike.jpg'));
   images.push(loadImage('images/labrador.png'));
-  images.push(loadImage('images/laika.jpg'));
+  images.push(loadImage('images/Laika.jpg'));
   images.push(loadImage('images/runner.png'));
   images.push(loadImage('images/eiffel.png'));
 }
