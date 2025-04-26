@@ -56,7 +56,7 @@ function displayImageAndChart(results, img, i) {
   canvas.id = 'chart' + i;
   canvas.style.maxWidth = '600px';  // Maximale Breite
 canvas.style.width = '100%';      // Flexible Breite bis maximal 300px
-canvas.height = 300;              // Höhe bleibt konstant
+canvas.style.height = '300';              // Höhe bleibt konstant
   chartCell.appendChild(canvas);
 
   // Anhängen
