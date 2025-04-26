@@ -49,8 +49,13 @@ function gotResult(results, index) {
   classifiedCount++;
   if (classifiedCount === images.length) {
     addUploadSection();
+    
+ // Nach dem vollständigen Laden:
+document.getElementById('loading').style.display = 'none';
+document.getElementById('outer-container').style.display = 'block'; 
   }
 }
+
 
 function displayImageAndChart(results, img, i) {
   const tableBody = document.querySelector('#container tbody');
