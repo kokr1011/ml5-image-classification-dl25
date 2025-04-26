@@ -33,62 +33,62 @@ function gotResult(results, index) {
 }
 
 function displayImageAndChart(results, img, i) {
-  const container = document.getElementById('container');
+  const tableBody = document.querySelector('#container tbody');
 
-  // Zeile für Bild und Chart
-  const row = document.createElement('div');
-  row.style.display = 'flex';
-  row.style.alignItems = 'center';
-  row.style.marginBottom = '20px';
+  // Neue Tabellenzeile
+  const row = document.createElement('tr');
 
-  // Bild-Container
-  const imgDiv = document.createElement('div');
-  imgDiv.style.flex = '1';
-  imgDiv.style.textAlign = 'center';
+  // Erste Zelle: Bild
+  const imgCell = document.createElement('td');
+  imgCell.style.verticalAlign = 'top'; // Oben ausrichten
+  imgCell.style.padding = '40px';
   
   const imgElement = createImg(img.canvas.toDataURL(), 'classified image');
-  imgElement.size(200, 200);
-  imgElement.parent(imgDiv);
+  imgElement.size(300, 300);
+  imgElement.parent(imgCell);
 
-  // Chart-Container
-  const chartDiv = document.createElement('div');
-  chartDiv.style.flex = '1';
-  
+  // Zweite Zelle: Chart
+  const chartCell = document.createElement('td');
+  chartCell.style.verticalAlign = 'top'; // Oben ausrichten
+  chartCell.style.padding = '10px';
+
   const canvas = document.createElement('canvas');
   canvas.id = 'chart' + i;
-  chartDiv.appendChild(canvas);
+  canvas.width = 300; // Feste Breite für saubere Ausrichtung
+  canvas.height = 300;
+  chartCell.appendChild(canvas);
 
   // Anhängen
-  row.appendChild(imgDiv);
-  row.appendChild(chartDiv);
-  container.appendChild(row);
+  row.appendChild(imgCell);
+  row.appendChild(chartCell);
+  tableBody.appendChild(row);
 
   // Chart erstellen
   const ctx = canvas.getContext('2d');
-new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: [
-      results.label1.split(" "),
-      results.label2.split(" "),
-      results.label3.split(" ")
-    ],
-    datasets: [{
-      label: '% Confidence',
-      data: [results.confidence1, results.confidence2, results.confidence3],
-      borderWidth: 1
-    }]
-  },
-  options: {
-    scales: {
-      y: {
-        beginAtZero: true
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: [
+        results.label1.split(" "),
+        results.label2.split(" "),
+        results.label3.split(" ")
+      ],
+      datasets: [{
+        label: '% Confidence',
+        data: [results.confidence1, results.confidence2, results.confidence3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
       }
     }
-  }
-});
-
+  });
 }
+
 
 
 function draw() {
