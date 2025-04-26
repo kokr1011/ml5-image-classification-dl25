@@ -1,13 +1,36 @@
 /* styles.css */
 
-/* body {
-  font-family: Arial, sans-serif;
-  background-color: #f7f7f7;
-  color: #333;
-  margin: 2em;
-  padding: 20px;
-} */
+/* Google Font importieren */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
+/* Basis-Styles */
+html, body {
+  font-family: 'Roboto', Arial, sans-serif;
+  background-color: #fafafa;
+  margin: 20px;
+  padding: 10px;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Container */
+#outer-container {
+  background-color: #f8f9fb;
+  padding: 30px;
+  max-width: 1200px;
+  min-width: 1000px;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: opacity 1s ease-in-out;
+  opacity: 0;
+}
+
+#outer-container.visible {
+  opacity: 1;
+}
+
+/* Flex-Container für Uploads */
 .container {
   display: flex;
   flex-wrap: wrap;
@@ -15,63 +38,52 @@
   gap: 20px;
 }
 
-
-
-html, body {
-  margin: 20;
-  padding: 10;
-}
-canvas {
-  display: block;
-}
-
-#outer-container{
-  background-color: #f8f9fb;
-   padding: 30px;
-  max-width: 1200px;
-  min-width: 1000px;
-  -webkit-box-shadow: 2px 2px 11px 0px rgba(0,0,0,0.5); 
-   box-shadow: 2px 2px 11px 0px rgba(0,0,0,0.5);
-}
-
-/* new */
-/* Allgemeine Basis-Styles */
-body {
-  font-family: 'Roboto', Arial, sans-serif;
-  background-color: #fafafa;
-  margin: 20px;
-  color: #333;
-}
-
-/* Tabellenstruktur */
+/* Tabelle */
 table {
   width: 100%;
   border-collapse: collapse;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+td {
+  vertical-align: top;
+  padding: 20px;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 /* Überschriften */
-h2 {
-  font-size: 24px;
-  color: #424242;
-  margin-bottom: 10px;
+h1, h2 {
+  font-weight: 500;
+  margin-bottom: 20px;
+  color: #1976d2; /* Material Design Blue */
 }
 
-/* Buttons im Material Design Stil */
+h2 {
+  font-size: 24px;
+}
+
+/* Buttons im Material Stil */
 button {
   background-color: #1976d2;
   color: white;
   border: none;
-  border-radius: 4px;
-  padding: 10px 20px;
-  margin: 10px 8px 0 8px; /* Hier: Abstand nach links und rechts */
+  border-radius: 30px; /* Material Design: Rundere Ecken */
+  padding: 12px 24px;
+  margin: 10px 8px 0 8px;
   font-size: 16px;
+  font-weight: 500;
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s, transform 0.2s ease;
 }
 
 button:hover {
   background-color: #1565c0;
+  transform: translateY(-2px);
 }
 
 button:disabled {
@@ -79,15 +91,15 @@ button:disabled {
   cursor: not-allowed;
 }
 
-
 /* Drag & Drop Bereich */
 #drop-zone {
-  border: 2px dashed #90a4ae; /* Blau-Grau aus Material Design */
+  border: 2px dashed #90a4ae;
   border-radius: 8px;
   padding: 40px;
   background-color: #eceff1;
   color: #607d8b;
   font-size: 16px;
+  text-align: center;
   transition: background-color 0.3s ease;
 }
 
@@ -101,11 +113,33 @@ img {
   height: auto;
   margin-top: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Kleine Details für saubere Optik */
-td {
-  vertical-align: top;
-  padding: 20px;
+/* Canvas-Element */
+canvas {
+  display: block;
+  margin: 0 auto;
+}
+
+/* Responsives Design */
+@media (max-width: 768px) {
+  table, tbody, tr, td {
+    display: block;
+    width: 100%;
+  }
+
+  td {
+    padding: 10px;
+  }
+
+  button {
+    width: 90%;
+    margin: 10px auto;
+  }
+
+  #drop-zone {
+    padding: 30px;
+  }
 }
