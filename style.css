@@ -46,14 +46,14 @@ h2 {
   margin-bottom: 10px;
 }
 
-/* Buttons im Material Design Teal Stil */
+/* Buttons im Material Design Stil */
 button {
-  background-color: #009688; /* Material Teal */
+  background-color: #1976d2;
   color: white;
   border: none;
-  border-radius: 30px; /* Material Design typisch rund */
+  border-radius: 4px;
   padding: 10px 20px;
-  margin: 10px 8px 0 8px;
+  margin: 10px 8px 0 8px; /* Hier: Abstand nach links und rechts */
   font-size: 16px;
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -61,28 +61,27 @@ button {
 }
 
 button:hover {
-  background-color: #00796b; /* dunkleres Teal beim Hover */
+  background-color: #1565c0;
 }
 
 button:disabled {
-  background-color: #b2dfdb; /* leichtes Teal für disabled Button */
+  background-color: #90caf9;
   cursor: not-allowed;
 }
 
 /* Drag & Drop Bereich */
 #drop-zone {
-  border: 2px dashed #80cbc4; /* Teal abgestimmt */
+  border: 2px dashed #90a4ae; /* Blau-Grau aus Material Design */
   border-radius: 8px;
   padding: 40px;
-  background-color: #e0f2f1;
-  color: #00796b;
+  background-color: #eceff1;
+  color: #607d8b;
   font-size: 16px;
-  text-align: center;
   transition: background-color 0.3s ease;
 }
 
 #drop-zone:hover {
-  background-color: #b2dfdb;
+  background-color: #d0d7dd;
 }
 
 /* Bildvorschau */
