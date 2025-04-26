@@ -2,7 +2,7 @@ let classifier;
 let images = [];
 let resultsArray = [];
 let classifiedCount = 0;
-let uploadedRow = null; // hält die Zeile für das hochgeladene Bild
+let uploadedRow = null; // holds the row for the uploaded image
 
 const captions = [
   "Crane",
@@ -13,6 +13,8 @@ const captions = [
   "Eiffel tower mosaic"
 ];
 
+let previewImg;
+let classifyButton;
 
 function preload() {
   classifier = ml5.imageClassifier('MobileNet');
@@ -53,28 +55,24 @@ function gotResult(results, index) {
 function displayImageAndChart(results, img, i) {
   const tableBody = document.querySelector('#container tbody');
 
-  // Überschriften für Bereiche einfügen
+  // Section headers
   if (i === 0) {
     addSectionHeader('Correctly classified images');
   }
   if (i === 3) {
-    addSectionHeader('Falsly classified images');
+    addSectionHeader('Falsely classified images');
   }
 
-  // Neue Tabellenzeile
   const row = document.createElement('tr');
 
-  // === Linke Zelle: Bild mit Unterschrift ===
   const imgCell = document.createElement('td');
   imgCell.style.textAlign = 'center';
 
-  // Container für Bild + Bildunterschrift
   const imgContainer = document.createElement('div');
   imgContainer.style.display = 'flex';
   imgContainer.style.flexDirection = 'column';
   imgContainer.style.alignItems = 'center';
 
-  // Bild selbst
   const imgElement = createImg(img.canvas.toDataURL(), 'classified image');
   imgElement.size(300, 300);
   imgElement.parent(imgContainer);
@@ -86,12 +84,9 @@ function displayImageAndChart(results, img, i) {
   caption.style.color = '#555';
   imgContainer.appendChild(caption);
 
-  // Container in die Zelle einfügen
   imgCell.appendChild(imgContainer);
 
-  // === Rechte Zelle: Chart ===
   const chartCell = document.createElement('td');
-
   const canvas = document.createElement('canvas');
   canvas.id = 'chart' + i;
   canvas.style.maxWidth = '600px';
@@ -99,12 +94,10 @@ function displayImageAndChart(results, img, i) {
   canvas.height = 300;
   chartCell.appendChild(canvas);
 
-  // Zeile zusammensetzen
   row.appendChild(imgCell);
   row.appendChild(chartCell);
   tableBody.appendChild(row);
 
-  // === Chart erzeugen ===
   const ctx = canvas.getContext('2d');
   new Chart(ctx, {
     type: 'bar',
@@ -124,14 +117,11 @@ function displayImageAndChart(results, img, i) {
       responsive: true,
       maintainAspectRatio: false,
       scales: {
-        y: {
-          beginAtZero: true
-        }
+        y: { beginAtZero: true }
       }
     }
   });
 }
-
 
 function addSectionHeader(title) {
   const tableBody = document.querySelector('#container tbody');
@@ -147,7 +137,7 @@ function addUploadSection() {
   addSectionHeader('Upload your own image to classify');
 
   const tableBody = document.querySelector('#container tbody');
-  const uploadRowContainer = document.createElement('tr');
+  const uploadRow = document.createElement('tr');
   const uploadCell = document.createElement('td');
   uploadCell.colSpan = 2;
   uploadCell.style.textAlign = 'center';
@@ -156,22 +146,34 @@ function addUploadSection() {
   dropZone.id = 'drop-zone';
   dropZone.textContent = 'Click to upload or drag and drop';
   dropZone.style.cursor = 'pointer';
+  dropZone.style.border = '2px dashed #90a4ae';
+  dropZone.style.borderRadius = '10px';
+  dropZone.style.padding = '40px';
+  dropZone.style.marginBottom = '20px';
+  dropZone.style.backgroundColor = '#eceff1';
+  
+  const helpText = document.createElement('small');
+  helpText.textContent = 'Supported formats: JPG, PNG (max 5MB)';
+  helpText.style.display = 'block';
+  helpText.style.marginTop = '10px';
+  helpText.style.color = '#555';
+  dropZone.appendChild(helpText);
 
   const fileInput = document.createElement('input');
   fileInput.type = 'file';
-  fileInput.accept = 'image/*';
-  fileInput.id = 'image-input';
+  fileInput.accept = 'image/jpeg, image/png';
   fileInput.style.display = 'none';
 
   const selectButton = document.createElement('button');
   selectButton.textContent = 'Upload image';
   selectButton.onclick = () => fileInput.click();
 
-  const classifyButton = document.createElement('button');
+  classifyButton = document.createElement('button');
   classifyButton.textContent = 'Classify';
   classifyButton.disabled = true;
 
-  let previewImg = document.createElement('img');
+  previewImg = document.createElement('img');
+  previewImg.alt = 'Preview of uploaded image';
   previewImg.style.width = '300px';
   previewImg.style.height = '300px';
   previewImg.style.objectFit = 'cover';
@@ -180,10 +182,15 @@ function addUploadSection() {
   previewImg.style.borderRadius = '8px';
   previewImg.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
 
-  dropZone.onclick = () => fileInput.click(); // Klick auf Dropzone öffnet auch Dateiauswahl
+  const feedbackText = document.createElement('div');
+  feedbackText.style.marginTop = '10px';
+  feedbackText.style.color = '#4caf50';
+  feedbackText.style.display = 'none';
+
+  dropZone.onclick = () => fileInput.click();
 
   fileInput.addEventListener('change', (event) => {
-    handleFile(event.target.files[0]);
+    handleFile(event.target.files[0], feedbackText);
   });
 
   dropZone.addEventListener('dragover', (event) => {
@@ -199,42 +206,20 @@ function addUploadSection() {
   dropZone.addEventListener('drop', (event) => {
     event.preventDefault();
     dropZone.style.backgroundColor = '#eceff1';
-    handleFile(event.dataTransfer.files[0]);
+    handleFile(event.dataTransfer.files[0], feedbackText);
   });
-
-  function handleFile(file) {
-     // Überprüfen, ob eine Datei existiert und ob es ein Bild ist
-  if (!file || !file.type.startsWith('image/')) {
-    alert('Please upload a valid image file (e.g., JPG, PNG).');
-    return;
-  }
-   // Falls bereits ein vorheriges hochgeladenes Bild und Chart existieren: entfernen
-    if (uploadedRow) {
-      uploadedRow.remove();  // Altes Ergebnis sofort entfernen
-      uploadedRow = null;    // Zeiger zurücksetzen
-    }
-
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      previewImg.src = e.target.result;
-      previewImg.style.display = 'block';
-      classifyButton.disabled = false;
-    };
-    reader.readAsDataURL(file);
-  }
-
 
   classifyButton.onclick = () => {
     if (previewImg.src) {
       classifier.classify(previewImg, (results) => {
-        if (uploadedRow) {
-          uploadedRow.remove();
-        }
+        if (uploadedRow) uploadedRow.remove();
+
         uploadedRow = document.createElement('tr');
 
         const imgCell = document.createElement('td');
         const imgElement = document.createElement('img');
         imgElement.src = previewImg.src;
+        imgElement.alt = 'Classified uploaded image';
         imgElement.style.width = '300px';
         imgElement.style.height = '300px';
         imgElement.style.objectFit = 'cover';
@@ -251,8 +236,6 @@ function addUploadSection() {
 
         uploadedRow.appendChild(imgCell);
         uploadedRow.appendChild(chartCell);
-
-        const tableBody = document.querySelector('#container tbody');
         tableBody.appendChild(uploadedRow);
 
         const ctx = canvas.getContext('2d');
@@ -278,15 +261,15 @@ function addUploadSection() {
             responsive: true,
             maintainAspectRatio: false,
             scales: {
-              y: {
-                beginAtZero: true
-              }
+              y: { beginAtZero: true }
             }
           }
         });
 
-        // Bildvorschau entfernen
         previewImg.style.display = 'none';
+        classifyButton.disabled = true;
+        feedbackText.textContent = 'Image successfully classified!';
+        feedbackText.style.display = 'block';
       });
     }
   };
@@ -296,7 +279,34 @@ function addUploadSection() {
   uploadCell.appendChild(selectButton);
   uploadCell.appendChild(classifyButton);
   uploadCell.appendChild(previewImg);
+  uploadCell.appendChild(feedbackText);
 
-  uploadRowContainer.appendChild(uploadCell);
-  tableBody.appendChild(uploadRowContainer);
+  uploadRow.appendChild(uploadCell);
+  tableBody.appendChild(uploadRow);
+}
+
+function handleFile(file, feedbackText) {
+  if (!file || !file.type.startsWith('image/')) {
+    alert('Please upload a valid image file (e.g., JPG, PNG).');
+    return;
+  }
+
+  if (file.size > 5 * 1024 * 1024) { // 5MB Limit
+    alert('The uploaded file is too large. Please upload an image smaller than 5MB.');
+    return;
+  }
+
+  if (uploadedRow) {
+    uploadedRow.remove();
+    uploadedRow = null;
+  }
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    previewImg.src = e.target.result;
+    previewImg.style.display = 'block';
+    classifyButton.disabled = false;
+    feedbackText.style.display = 'none';
+  };
+  reader.readAsDataURL(file);
 }
