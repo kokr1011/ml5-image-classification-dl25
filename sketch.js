@@ -9,7 +9,10 @@ function preload() {
   classifier = ml5.imageClassifier("MobileNet");
   images.push(loadImage("images/bird.jpg"));
   images.push(loadImage("images/bike.jpg"));
+  images.push(loadImage("images/labrador.png"));
   images.push(loadImage("images/laika.jpg"));
+  images.push(loadImage("images/runner.png"));
+  images.push(loadImage("images/eiffel.png"));
 }
 
 function setup() {
