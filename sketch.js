@@ -54,8 +54,9 @@ function displayImageAndChart(results, img, i) {
 
   const canvas = document.createElement('canvas');
   canvas.id = 'chart' + i;
-  canvas.width = 300; // Feste Breite für saubere Ausrichtung
-  canvas.height = 300;
+  canvas.style.maxWidth = '600px';  // Maximale Breite
+canvas.style.width = '100%';      // Flexible Breite bis maximal 300px
+canvas.height = 300;              // Höhe bleibt konstant
   chartCell.appendChild(canvas);
 
   // Anhängen
@@ -139,6 +140,3 @@ function kissMyAss(results, i) {
     }
   });
 }
-
-
-
