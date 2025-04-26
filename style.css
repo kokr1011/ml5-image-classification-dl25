@@ -8,15 +8,15 @@
   padding: 20px;
 } */
 
-/* .container {
+.container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
-} */
+}
 
 
-/* 
+
 html, body {
   margin: 20;
   padding: 10;
@@ -24,7 +24,7 @@ html, body {
 canvas {
   display: block;
 }
- */
+
 #outer-container{
   background-color: #f8f9fb;
    padding: 30px;
@@ -47,8 +47,8 @@ canvas {
 /* table {
   width: 100%;
   border-collapse: collapse;
-}
- */
+} */
+
 /* Überschriften */
 /* h2 {
   font-size: 24px;
@@ -68,17 +68,17 @@ canvas {
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease;
-} */
+}
 
-/* button:hover {
+button:hover {
   background-color: #1565c0;
 }
 
 button:disabled {
   background-color: #90caf9;
   cursor: not-allowed;
-}
- */
+} */
+
 
 /* Drag & Drop Bereich */
 /* #drop-zone {
@@ -89,26 +89,20 @@ button:disabled {
   color: #607d8b;
   font-size: 16px;
   transition: background-color 0.3s ease;
-}
+} */
 
-#drop-zone:hover {
+/* #drop-zone:hover {
   background-color: #d0d7dd;
-}
- */
+} */
+
 /* Bildvorschau */
-img {
+/* img {
   max-width: 100%;
   height: auto;
   margin-top: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Kleine Details für saubere Optik */
-td {
-  vertical-align: top;
-  padding: 20px;
-}
+} */
 
 /* Import Google Font */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
