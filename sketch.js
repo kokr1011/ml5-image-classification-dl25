@@ -199,7 +199,9 @@ maintainAspectRatio: false
     finalHeadingCell.appendChild(finalHeading);
     finalHeadingRow.appendChild(finalHeadingCell);
     tableBody.appendChild(finalHeadingRow);
-     // === NEU: Drag&Drop-Feld und Buttons hinzufügen ===
+
+    
+  // === NEU: Drag&Drop-Feld und Buttons hinzufügen ===
   const uploadRow = document.createElement('tr');
   const uploadCell = document.createElement('td');
   uploadCell.colSpan = 2;
