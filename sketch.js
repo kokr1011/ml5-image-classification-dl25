@@ -291,16 +291,26 @@ function addUploadSection() {
 }
 
 function handleFile(file, feedbackText) {
-  if (!file || !file.type.startsWith('image/')) {
-    alert('Please upload a valid image file (e.g., JPG, PNG).');
+  if (!file) {
+    alert('No file selected.');
     return;
   }
 
-  if (file.size > 5 * 1024 * 1024) { // 5MB Limit
+  // Dateityp prüfen
+  const allowedTypes = ['image/jpeg', 'image/png'];
+  if (!allowedTypes.includes(file.type)) {
+    alert('Unsupported file format. Please upload a JPG or PNG image.');
+    return;
+  }
+
+  // Dateigröße prüfen
+  const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
+  if (file.size > maxSizeInBytes) {
     alert('The uploaded file is too large. Please upload an image smaller than 5MB.');
     return;
   }
 
+  // Falls bereits ein vorheriges hochgeladenes Bild und Chart existiert: entfernen
   if (uploadedRow) {
     uploadedRow.remove();
     uploadedRow = null;
@@ -311,7 +321,7 @@ function handleFile(file, feedbackText) {
     previewImg.src = e.target.result;
     previewImg.style.display = 'block';
     classifyButton.disabled = false;
-    feedbackText.style.display = 'none';
+    if (feedbackText) feedbackText.style.display = 'none';
   };
   reader.readAsDataURL(file);
 }
