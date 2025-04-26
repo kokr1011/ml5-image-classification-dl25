@@ -1,27 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Image classification using MobileNet and p5.js</title>
-    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.5/lib/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/addons/p5.sound.min.js"></script>
-    <script src="https://unpkg.com/ml5@1/dist/ml5.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <meta charset="utf-8" />
-    <link rel="icon" href="images/favicon.png" type="image/x-icon">
+<head>
+  <title>Image classification using MobileNet and p5.js</title>
+  <meta charset="utf-8" />
+  <link rel="icon" href="images/favicon.png" type="image/x-icon">
 
-  </head>
-  <body>
-    <div id="outer-container">
-    <h1>Image classification using MobileNet and p5.js</h1> 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="sketch.js"></script>
- <table id="container" style="width: 100%; border-collapse: collapse; margin-right:25px;">
-  <tbody>
-    <!-- Hier werden die Bilder und Charts dynamisch eingefügt -->
-  </tbody>
-</table>
-      <section>
-      <h2>Disscusion</h2>
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.11.5/lib/p5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/addons/p5.sound.min.js"></script>
+  <script src="https://unpkg.com/ml5@1/dist/ml5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+      background-color: #fafafa;
+      margin: 40px;
+      line-height: 1.6;
+    }
+    h1, h2 {
+      color: #1976d2;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    td {
+      vertical-align: top;
+      padding: 20px;
+    }
+    #loading {
+      font-size: 18px;
+      color: #666;
+      text-align: center;
+      margin-top: 100px;
+    }
+    #outer-container {
+      display: none; /* WICHTIG: Verstecken bis alles fertig */
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="loading">Loading images and classification results...</div>
+
+  <div id="outer-container">
+    <h1>Image classification using MobileNet and p5.js</h1>
+
+    <table id="container" style="width: 100%; border-collapse: collapse; margin-right:25px;">
+      <tbody>
+        <!-- Dynamisch befüllte Bilder und Charts -->
+      </tbody>
+    </table>
+
+    <section>
+      <h2>Discussion</h2>
       <p>The pretrained model correctly classified familiar everyday objects, places, landscapes, and representatives of flora and fauna in most cases.
 However, accurate classification generally required photos with good contrast, high resolution, and a clear depiction of the main object.
 It was particularly striking that even a partial view, such as a fragment of a tandem bicycle, led to a highly accurate classification, although even the human eye struggles to detect the second set of pedals and handlebars.
@@ -32,51 +68,46 @@ A notable failure also appeared in the recognition of the Eiffel Tower, where ne
 This suggests that both landmarks and famous structures are not reliably recognized by the model.
 Non-standard visual forms and artistic styles appear to pose a considerable challenge for accurate classification.
 Overall, the experiment demonstrated both the strengths and the limitations of pretrained models when dealing with varying image complexities.</p>
- </section>
-    
-<!--    <nav>
-    <h3>Contents</h3>
-    <ul>
-      <li><a href="#technical-documentation">1) Technical Documentation</a></li>
-      <li><a href="#subject-specific-documentation">2) Subject-Specific Documentation</a></li>
-    </ul>
-  </nav> -->
+    </section>
 
-  <section id="technical-documentation">
-    <h2>1) Technical Documentation</h2>
+    <section id="technical-documentation">
+      <h2>1) Technical Documentation</h2>
 
-    <h3>Frameworks and Libraries Used:</h3>
-    <ul>
-  <li><strong><a href="https://editor.p5js.org/" target="_blank">p5.js Editor</a></strong>: Used to handle basic image operations, DOM manipulation, and dynamic rendering of images within the webpage.</li>
-  <li><strong><a href="https://ml5js.org/" target="_blank">ml5.js</a></strong>: Utilized for loading the pretrained MobileNet model and performing image classification in the browser using simple, accessible syntax.</li>
-  <li><strong><a href="https://www.chartjs.org/" target="_blank">Chart.js</a></strong>: Applied to visualize classification results in bar charts, providing a clear and intuitive representation of the confidence levels for the top predictions.</li>
-  <li><strong><a href="https://docs.github.com/en/pages" target="_blank">GitHub Pages</a></strong>: GitHub Pages is a static site hosting service that takes HTML, CSS, and JavaScript files straight from a repository on GitHub, optionally runs the files through a build process, and publishes a website.</li>
-</ul>
+      <h3>Frameworks and Libraries Used:</h3>
+      <ul>
+        <li><strong><a href="https://editor.p5js.org/" target="_blank">p5.js Editor</a></strong>: Used to handle basic image operations, DOM manipulation, and dynamic rendering of images within the webpage.</li>
+        <li><strong><a href="https://ml5js.org/" target="_blank">ml5.js</a></strong>: Utilized for loading the pretrained MobileNet model and performing image classification in the browser using simple, accessible syntax.</li>
+        <li><strong><a href="https://www.chartjs.org/" target="_blank">Chart.js</a></strong>: Applied to visualize classification results in bar charts, providing a clear and intuitive representation of the confidence levels for the top predictions.</li>
+        <li><strong><a href="https://docs.github.com/en/pages" target="_blank">GitHub Pages</a></strong>: GitHub Pages is a static site hosting service that takes HTML, CSS, and JavaScript files straight from a repository on GitHub, optionally runs the files through a build process, and publishes a website.</li>
+      </ul>
 
+      <h3>Technical Specificities:</h3>
+      <ul>
+        <li>The application dynamically generates a table structure in the DOM, displaying images and corresponding classification charts side-by-side.</li>
+        <li>Drag & Drop functionality and manual file selection are both supported for user-uploaded images, using the same flow and layout as the static images.</li>
+        <li>Uploaded images immediately overwrite the previous result, ensuring a clean interface without duplicate entries.</li>
+        <li>Uploaded images are classified after being displayed in a consistent 300x300px format, maintaining visual uniformity with the static images.</li>
+        <li><strong>Deployment:</strong> The application is publicly hosted using <strong>GitHub Pages</strong>, ensuring accessibility from any browser without the need for server-side processing.</li>
+      </ul>
+    </section>
 
-    <h3>Technical Specificities:</h3>
-    <ul>
-      <li>The application dynamically generates a table structure in the DOM, displaying images and corresponding classification charts side-by-side.</li>
-      <li>Drag & Drop functionality and manual file selection are both supported for user-uploaded images, using the same flow and layout as the static images.</li>
-      <li>Uploaded images immediately overwrite the previous result, ensuring a clean interface without duplicate entries.</li>
-      <li>Uploaded images are classified after being displayed in a consistent 300x300px format, maintaining visual uniformity with the static images.</li>
-      <li><strong>Deployment:</strong> The application is publicly hosted using <strong>GitHub Pages</strong>, ensuring accessibility from any browser without the need for server-side processing.</li>
-    </ul>
-  </section>
+    <section id="subject-specific-documentation">
+      <h2>2) Subject-Specific Documentation</h2>
 
-  <section id="subject-specific-documentation">
-    <h2>2) Subject-Specific Documentation</h2>
+      <h3>Implementation of Logic and Key Elements:</h3>
+      <ul>
+        <li>The solution classifies a predefined set of static images using a pretrained MobileNet model and dynamically displays the results in a structured table layout.</li>
+        <li>Image classification is triggered in the <code>setup()</code> function after preloading images; once classified, each image and its corresponding chart are appended as a new table row.</li>
+        <li>Labels under each image provide descriptive captions, while the classification results are visualized using bar charts to indicate the confidence percentages of the top three predictions.</li>
+        <li>A separate upload section allows users to classify their own images, maintaining the same appearance and interaction flow as with static images.</li>
+        <li>Sources include the official <strong>ml5.js</strong>, <strong>p5.js</strong>, and <strong>Chart.js</strong> documentation, with additional design choices based on principles from Google's Material Design Guidelines.</li>
+        <li>Observations revealed that familiar, clear, and high-contrast objects are classified accurately, while abstract, artistic, or landmark images like the Eiffel Tower are not reliably recognized by the model.</li>
+      </ul>
+    </section>
+  </div>
 
-    <h3>Implementation of Logic and Key Elements:</h3>
-    <ul>
-      <li>The solution classifies a predefined set of static images using a pretrained MobileNet model and dynamically displays the results in a structured table layout.</li>
-      <li>Image classification is triggered in the <code>setup()</code> function after preloading images; once classified, each image and its corresponding chart are appended as a new table row.</li>
-      <li>Labels under each image provide descriptive captions, while the classification results are visualized using bar charts to indicate the confidence percentages of the top three predictions.</li>
-      <li>A separate upload section allows users to classify their own images, maintaining the same appearance and interaction flow as with static images.</li>
-      <li>Sources include the official <strong>ml5.js</strong>, <strong>p5.js</strong>, and <strong>Chart.js</strong> documentation, with additional design choices based on principles from Google's Material Design Guidelines.</li>
-      <li>Observations revealed that familiar, clear, and high-contrast objects are classified accurately, while abstract, artistic, or landmark images like the Eiffel Tower are not reliably recognized by the model.</li>
-    </ul>
-  </section>
-    </div>
-  </body>
+  <!-- Ihr Sketch -->
+  <script src="sketch.js"></script>
+
+</body>
 </html>
