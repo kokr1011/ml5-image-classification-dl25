@@ -42,14 +42,17 @@ Overall, the experiment demonstrated both the strengths and the limitations of p
       <li><strong>p5.js</strong>: Used to handle basic image operations, DOM manipulation, and dynamic rendering of images within the webpage.</li>
       <li><strong>ml5.js</strong>: Utilized for loading the pretrained MobileNet model and performing image classification in the browser using simple, accessible syntax.</li>
       <li><strong>Chart.js</strong>: Applied to visualize classification results in bar charts, providing a clear and intuitive representation of the confidence levels for the top predictions.</li>
+      <li><strong>GitHub Pages</strong>: GitHub Pages is a static site hosting service that takes HTML, CSS, and JavaScript files straight from a repository on GitHub, optionally runs the files through a build process, and publishes a website. (<a href="https://docs.github.com/de/pages/getting-started-with-github-pages/creating-a-github-pages-site" target="_blank">Source</a>)</li>
     </ul>
 
     <h3>Technical Specificities:</h3>
     <ul>
+      <li>The application works on the client side (pure HTML/JS), is based on open web standards and is easy to deploy on a web server (in this case GitHub Pages).</li>
       <li>The application dynamically generates a table structure in the DOM, displaying images and corresponding classification charts side-by-side.</li>
       <li>Drag & Drop functionality and manual file selection are both supported for user-uploaded images, using the same flow and layout as the static images.</li>
       <li>Uploaded images immediately overwrite the previous result, ensuring a clean interface without duplicate entries.</li>
       <li>Uploaded images are classified after being displayed in a consistent 300x300px format, maintaining visual uniformity with the static images.</li>
+      <li><strong>Deployment:</strong> The application is publicly hosted using <strong>GitHub Pages</strong>, ensuring accessibility from any browser without the need for server-side processing.</li>
     </ul>
   </section>
 
@@ -64,6 +67,7 @@ Overall, the experiment demonstrated both the strengths and the limitations of p
       <li>A separate upload section allows users to classify their own images, maintaining the same appearance and interaction flow as with static images.</li>
       <li>Sources include the official <strong>ml5.js</strong>, <strong>p5.js</strong>, and <strong>Chart.js</strong> documentation, with additional design choices based on principles from Google's Material Design Guidelines.</li>
       <li>Observations revealed that familiar, clear, and high-contrast objects are classified accurately, while abstract, artistic, or landmark images like the Eiffel Tower are not reliably recognized by the model.</li>
+
     </ul>
   </section>
     </div>
