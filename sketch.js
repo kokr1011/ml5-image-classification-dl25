@@ -134,7 +134,9 @@ function kissMyAss(results, i) {
     options: {
       scales: {
         y: {
-          beginAtZero: true
+          beginAtZero: true,
+          responsive: true,
+maintainAspectRatio: false
         }
       }
     }
