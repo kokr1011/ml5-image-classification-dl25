@@ -1,4 +1,4 @@
-/* styles.css */
+/* style-teal.css */
 
 /* Google Font importieren */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
@@ -6,14 +6,28 @@
 /* Basis-Styles */
 html, body {
   font-family: 'Roboto', Arial, sans-serif;
-  background-color: #fafafa;
+  background-color: #f5f5f5;
   margin: 20px;
   padding: 10px;
   color: #333;
   line-height: 1.6;
 }
 
-/* Container */
+/* Flex-Container */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Canvas-Element */
+canvas {
+  display: block;
+  margin: 0 auto;
+}
+
+/* Hauptcontainer */
 #outer-container {
   background-color: #f8f9fb;
   padding: 30px;
@@ -28,14 +42,6 @@ html, body {
 
 #outer-container.visible {
   opacity: 1;
-}
-
-/* Flex-Container für Uploads */
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
 }
 
 /* Tabelle */
@@ -59,19 +65,19 @@ td {
 h1, h2 {
   font-weight: 500;
   margin-bottom: 20px;
-  color: #1976d2; /* Material Design Blue */
+  color: #009688; /* Türkis-Farbe */
 }
 
 h2 {
   font-size: 24px;
 }
 
-/* Buttons im Material Stil */
+/* Buttons (Teal-Variante) */
 button {
-  background-color: #1976d2;
+  background-color: #009688;
   color: white;
   border: none;
-  border-radius: 30px; /* Material Design: Rundere Ecken */
+  border-radius: 30px;
   padding: 12px 24px;
   margin: 10px 8px 0 8px;
   font-size: 16px;
@@ -82,29 +88,29 @@ button {
 }
 
 button:hover {
-  background-color: #1565c0;
+  background-color: #00796b;
   transform: translateY(-2px);
 }
 
 button:disabled {
-  background-color: #90caf9;
+  background-color: #b2dfdb;
   cursor: not-allowed;
 }
 
 /* Drag & Drop Bereich */
 #drop-zone {
-  border: 2px dashed #90a4ae;
+  border: 2px dashed #80cbc4;
   border-radius: 8px;
   padding: 40px;
-  background-color: #eceff1;
-  color: #607d8b;
+  background-color: #e0f2f1;
+  color: #00796b;
   font-size: 16px;
   text-align: center;
   transition: background-color 0.3s ease;
 }
 
 #drop-zone:hover {
-  background-color: #d0d7dd;
+  background-color: #b2dfdb;
 }
 
 /* Bildvorschau */
@@ -117,13 +123,16 @@ img {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Canvas-Element */
-canvas {
-  display: block;
-  margin: 0 auto;
+/* Abschnittsboxen */
+section {
+  background: #ffffff;
+  padding: 30px;
+  margin-top: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-/* Responsives Design */
+/* Responsive Design */
 @media (max-width: 768px) {
   table, tbody, tr, td {
     display: block;
