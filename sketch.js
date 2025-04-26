@@ -39,6 +39,42 @@ function gotResult(results, index) {
 
 function displayImageAndChart(results, img, i) {
   const tableBody = document.querySelector('#container tbody');
+  
+    // === NEU: Überschrift vor dem ersten Bild ===
+  if (i === 0) {
+    const headingRow = document.createElement('tr');
+    const headingCell = document.createElement('td');
+    headingCell.colSpan = 2;
+    headingCell.style.textAlign = 'left';
+    headingCell.style.padding = '20px 10px 10px 10px';
+
+    const heading = document.createElement('h2');
+    heading.textContent = 'Richtig klassifizierte Bilder';
+    heading.style.margin = '0';
+
+    headingCell.appendChild(heading);
+    headingRow.appendChild(headingCell);
+    tableBody.appendChild(headingRow);
+  }
+  // === Ende erste Überschrift ===
+  
+  // === NEU: Überschrift nach dem dritten Bild ===
+  if (i === 3) { // Beachte: Index 3 ist das 4. Bild (0-basiert)
+    const headingRow = document.createElement('tr');
+    const headingCell = document.createElement('td');
+    headingCell.colSpan = 2;
+    headingCell.style.textAlign = 'left';
+    headingCell.style.padding = '20px 10px 10px 10px';
+
+    const heading = document.createElement('h2');
+    heading.textContent = 'Falsch klassifizierte Bilder';
+    heading.style.margin = '0'; // Kein zusätzlicher Abstand
+
+    headingCell.appendChild(heading);
+    headingRow.appendChild(headingCell);
+    tableBody.appendChild(headingRow);
+  }
+  // === Ende neue Überschrift ===
 
   // Neue Tabellenzeile
   const row = document.createElement('tr');
