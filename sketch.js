@@ -297,4 +297,4 @@ maintainAspectRatio: false
   uploadRow.appendChild(uploadCell);
   tableBody.appendChild(uploadRow);
 }
- 
+}
