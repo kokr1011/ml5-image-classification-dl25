@@ -4,6 +4,16 @@ let resultsArray = [];
 let classifiedCount = 0;
 let uploadedRow = null; // hält die Zeile für das hochgeladene Bild
 
+const captions = [
+  "Crane",
+  "Tandem bicycle",
+  "Labrador retriever",
+  "Laika",
+  "Runner",
+  "Eiffel tower mosaic"
+];
+
+
 function preload() {
   classifier = ml5.imageClassifier('MobileNet');
   images.push(loadImage('images/bird.jpg'));
@@ -43,6 +53,7 @@ function gotResult(results, index) {
 function displayImageAndChart(results, img, i) {
   const tableBody = document.querySelector('#container tbody');
 
+  // Überschriften für Bereiche einfügen
   if (i === 0) {
     addSectionHeader('Richtig klassifizierte Bilder');
   }
@@ -50,15 +61,37 @@ function displayImageAndChart(results, img, i) {
     addSectionHeader('Falsch klassifizierte Bilder');
   }
 
+  // Neue Tabellenzeile
   const row = document.createElement('tr');
+
+  // === Linke Zelle: Bild mit Unterschrift ===
   const imgCell = document.createElement('td');
   imgCell.style.textAlign = 'center';
-  
+
+  // Container für Bild + Bildunterschrift
+  const imgContainer = document.createElement('div');
+  imgContainer.style.display = 'flex';
+  imgContainer.style.flexDirection = 'column';
+  imgContainer.style.alignItems = 'center';
+
+  // Bild selbst
   const imgElement = createImg(img.canvas.toDataURL(), 'classified image');
   imgElement.size(300, 300);
-  imgElement.parent(imgCell);
+  imgElement.parent(imgContainer);
 
+  const caption = document.createElement('div');
+  caption.textContent = captions[i];
+  caption.style.marginTop = '10px';
+  caption.style.fontSize = '16px';
+  caption.style.color = '#555';
+  imgContainer.appendChild(caption);
+
+  // Container in die Zelle einfügen
+  imgCell.appendChild(imgContainer);
+
+  // === Rechte Zelle: Chart ===
   const chartCell = document.createElement('td');
+
   const canvas = document.createElement('canvas');
   canvas.id = 'chart' + i;
   canvas.style.maxWidth = '600px';
@@ -66,15 +99,21 @@ function displayImageAndChart(results, img, i) {
   canvas.height = 300;
   chartCell.appendChild(canvas);
 
+  // Zeile zusammensetzen
   row.appendChild(imgCell);
   row.appendChild(chartCell);
   tableBody.appendChild(row);
 
+  // === Chart erzeugen ===
   const ctx = canvas.getContext('2d');
   new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: [results.label1.split(' '), results.label2.split(' '), results.label3.split(' ')],
+      labels: [
+        results.label1.split(' '),
+        results.label2.split(' '),
+        results.label3.split(' ')
+      ],
       datasets: [{
         label: '% Confidence',
         data: [results.confidence1, results.confidence2, results.confidence3],
@@ -92,6 +131,7 @@ function displayImageAndChart(results, img, i) {
     }
   });
 }
+
 
 function addSectionHeader(title) {
   const tableBody = document.querySelector('#container tbody');
