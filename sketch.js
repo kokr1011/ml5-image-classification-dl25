@@ -55,10 +55,10 @@ function displayImageAndChart(results, img, i) {
 
   // Überschriften für Bereiche einfügen
   if (i === 0) {
-    addSectionHeader('Richtig klassifizierte Bilder');
+    addSectionHeader('Correctly classified images');
   }
   if (i === 3) {
-    addSectionHeader('Falsch klassifizierte Bilder');
+    addSectionHeader('Falsly classified images');
   }
 
   // Neue Tabellenzeile
@@ -144,7 +144,7 @@ function addSectionHeader(title) {
 }
 
 function addUploadSection() {
-  addSectionHeader('Eigenes Bild zum Klassifizieren hochladen');
+  addSectionHeader('Upload your own image to classify');
 
   const tableBody = document.querySelector('#container tbody');
   const uploadRowContainer = document.createElement('tr');
@@ -154,7 +154,7 @@ function addUploadSection() {
 
   const dropZone = document.createElement('div');
   dropZone.id = 'drop-zone';
-  dropZone.textContent = 'Ziehe ein Bild hierher oder klicke zum Auswählen';
+  dropZone.textContent = 'Click to upload or drag and drop';
   dropZone.style.cursor = 'pointer';
 
   const fileInput = document.createElement('input');
@@ -164,11 +164,11 @@ function addUploadSection() {
   fileInput.style.display = 'none';
 
   const selectButton = document.createElement('button');
-  selectButton.textContent = 'Bild auswählen';
+  selectButton.textContent = 'Upload image';
   selectButton.onclick = () => fileInput.click();
 
   const classifyButton = document.createElement('button');
-  classifyButton.textContent = 'Klassifizieren';
+  classifyButton.textContent = 'Classify';
   classifyButton.disabled = true;
 
   let previewImg = document.createElement('img');
