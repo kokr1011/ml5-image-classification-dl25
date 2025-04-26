@@ -3,6 +3,8 @@ let images = [];
 let resultsArray = [];
 let labelsArray = [[]];
 
+
+
 function preload() {
   classifier = ml5.imageClassifier("MobileNet");
   images.push(loadImage("images/bird.jpg"));
@@ -55,14 +57,15 @@ function displayImageAndChart(results, img, i) {
   const canvas = document.createElement('canvas');
   canvas.id = 'chart' + i;
   canvas.style.maxWidth = '600px';  // Maximale Breite
-canvas.style.width = '100%';      // Flexible Breite bis maximal 300px
-canvas.style.height = '300';              // Höhe bleibt konstant
+  canvas.style.width = '100%';      // Flexible Breite bis maximal 300px
+  canvas.style.height = '300px';              // Höhe bleibt konstant
   chartCell.appendChild(canvas);
 
   // Anhängen
   row.appendChild(imgCell);
   row.appendChild(chartCell);
   tableBody.appendChild(row);
+  
 
   // Chart erstellen
   const ctx = canvas.getContext('2d');
