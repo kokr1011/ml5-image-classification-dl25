@@ -199,5 +199,102 @@ maintainAspectRatio: false
     finalHeadingCell.appendChild(finalHeading);
     finalHeadingRow.appendChild(finalHeadingCell);
     tableBody.appendChild(finalHeadingRow);
+     // === NEU: Drag&Drop-Feld und Buttons hinzufügen ===
+  const uploadRow = document.createElement('tr');
+  const uploadCell = document.createElement('td');
+  uploadCell.colSpan = 2;
+  uploadCell.style.textAlign = 'center';
+  uploadCell.style.padding = '20px';
+
+  // Drag&Drop Bereich
+  const dropZone = document.createElement('div');
+  dropZone.id = 'drop-zone';
+  dropZone.style.border = '2px dashed #999';
+  dropZone.style.borderRadius = '10px';
+  dropZone.style.padding = '40px';
+  dropZone.style.marginBottom = '20px';
+  dropZone.style.backgroundColor = '#f9f9f9';
+  dropZone.textContent = 'Ziehe ein Bild hierher oder wähle ein Bild aus';
+  
+  // Dateieingabe
+  const fileInput = document.createElement('input');
+  fileInput.type = 'file';
+  fileInput.accept = 'image/*';
+  fileInput.id = 'image-input';
+  fileInput.style.display = 'none'; // wird vom Button ausgelöst
+
+  // "Bild auswählen" Button
+  const selectButton = document.createElement('button');
+  selectButton.textContent = 'Bild auswählen';
+  selectButton.style.marginRight = '10px';
+  selectButton.onclick = function() {
+    fileInput.click(); // Klick auf verstecktes File-Input
+  };
+
+  // "Klassifizieren" Button
+  const classifyButton = document.createElement('button');
+  classifyButton.textContent = 'Klassifizieren';
+  classifyButton.disabled = true; // Anfangs deaktiviert
+
+  // Bildvorschau (optional, klassisch sinnvoll)
+  const previewImg = document.createElement('img');
+  previewImg.style.maxWidth = '300px';
+  previewImg.style.marginTop = '20px';
+  previewImg.style.display = 'none';
+
+  // Event Listener für File Input
+  fileInput.addEventListener('change', (event) => {
+    handleFile(event.target.files[0]);
+  });
+
+  // Drag & Drop Events
+  dropZone.addEventListener('dragover', (event) => {
+    event.preventDefault();
+    dropZone.style.backgroundColor = '#e0e0e0';
+  });
+
+  dropZone.addEventListener('dragleave', (event) => {
+    event.preventDefault();
+    dropZone.style.backgroundColor = '#f9f9f9';
+  });
+
+  dropZone.addEventListener('drop', (event) => {
+    event.preventDefault();
+    dropZone.style.backgroundColor = '#f9f9f9';
+    const file = event.dataTransfer.files[0];
+    handleFile(file);
+  });
+
+  function handleFile(file) {
+    if (file && file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        previewImg.src = e.target.result;
+        previewImg.style.display = 'block';
+        classifyButton.disabled = false;
+      };
+      reader.readAsDataURL(file);
+    }
   }
+
+  // Button "Klassifizieren" klickbar machen
+  classifyButton.onclick = function() {
+    if (previewImg.src) {
+      classifier.classify(previewImg, (results) => {
+        console.log('Klassifizierungsergebnis:', results);
+        alert('Top Ergebnis: ' + results[0].label + ' (' + (results[0].confidence * 100).toFixed(1) + '%)');
+      });
+    }
+  };
+
+  // Alle Elemente anhängen
+  uploadCell.appendChild(dropZone);
+  uploadCell.appendChild(fileInput);
+  uploadCell.appendChild(selectButton);
+  uploadCell.appendChild(classifyButton);
+  uploadCell.appendChild(previewImg);
+
+  uploadRow.appendChild(uploadCell);
+  tableBody.appendChild(uploadRow);
 }
+ 
