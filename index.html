@@ -51,8 +51,19 @@
 
     <section id="project-documentation">
 
- 
-  <h2>1) Technical Documentation</h2>
+ <h2>Disscusion</h2>
+      <p>The pretrained model correctly classified familiar everyday objects, places, landscapes, and representatives of flora and fauna in most cases.
+However, accurate classification generally required photos with good contrast, high resolution, and a clear depiction of the main object.
+It was particularly striking that even a partial view, such as a fragment of a tandem bicycle, led to a highly accurate classification, although even the human eye struggles to detect the second set of pedals and handlebars.
+On the other hand, the model's performance declined when images were more abstract, contained multiple objects, or when the objects showed a similar appearance but belonged to different classes.
+For example, classifying the Laika dog breed proved difficult, as it is easily confused with other breeds or even wolves.
+Several test images of this breed consistently resulted in misclassifications.
+A notable failure also appeared in the recognition of the Eiffel Tower, where neither standard photographs nor mosaic representations were correctly classified.
+This suggests that both landmarks and famous structures are not reliably recognized by the model.
+Non-standard visual forms and artistic styles appear to pose a considerable challenge for accurate classification.
+Overall, the experiment demonstrated both the strengths and the limitations of pretrained models when dealing with varying image complexities.</p>
+  
+<h2>1) Technical Documentation</h2>
 
   <h3>Frameworks and Libraries Used:</h3>
   <ul>
@@ -104,16 +115,6 @@
   <li>Testing has shown that familiar, high-contrast objects are classified accurately, while abstract or complex scenes, such as mosaics or certain dog breeds, result in reduced accuracy.</li>
   <li>Sources and references include official documentation from ml5.js, p5.js, and Chart.js, as well as design principles from Google's Material Design Guidelines.</li>
 </ul>
-
-  <h2>3) Observations and Discussion</h2>
-
-  <p>
-    The pretrained model accurately classified common everyday objects, landscapes, and typical animal species in most cases. High-quality input images with good contrast and clear object depiction greatly improved classification performance.
-    Interestingly, even partial views, such as a fragment of a tandem bicycle, yielded correct results, despite being difficult for the human eye.
-    However, classification accuracy declined with abstract, artistic representations or when images contained multiple objects or classes that visually resemble each other.
-    For instance, the Laika dog breed was often misclassified due to its similarity to other dogs or even wolves. Additionally, the model struggled with landmark identification, such as the Eiffel Tower, especially in artistic formats like mosaics.
-    Overall, the project demonstrates both the capabilities and the limitations of using pretrained machine learning models for real-world image classification.
-  </p>
 
 </section>
 
