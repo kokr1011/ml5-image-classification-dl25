@@ -120,7 +120,7 @@ function kissMyAss(results, i) {
   const chartCanvas = document.createElement('canvas');
   chartCanvas.id = 'myChart' + i;
   chartCanvas.width = 400;
-  chartCanvas.height = 500;
+  chartCanvas.height = 300;
   chartContainer.appendChild(chartCanvas);
   
   const ctx = chartCanvas.getContext('2d');
