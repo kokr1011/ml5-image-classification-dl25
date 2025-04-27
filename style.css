@@ -1,5 +1,7 @@
 /* styles.css */
-
+#container > tbody > tr:nth-child(1) > td, #container > tbody > tr:nth-child(5) > td{
+  padding-left: 0;
+}
 /* Flex-Container */
 .container {
   display: flex;
