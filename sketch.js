@@ -93,8 +93,9 @@ function checkIfReady() {
       loadingDiv.classList.add('fade-out');
 
       setTimeout(() => {
-        loadingDiv.style.display = 'none';
-        outerContainer.style.display = 'block';
+      loadingDiv.style.display = 'none';
+      outerContainer.style.display = 'block';
+      outerContainer.classList.add('fade-in');
       }, 1000); // nach der Übergangszeit (1s)
     }
   }
