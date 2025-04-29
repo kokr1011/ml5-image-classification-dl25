@@ -24,6 +24,10 @@ canvas {
   display: block;
 }
 
+#p5_loading{
+  display:none;
+}
+
 #loading {
   font-size: 20px;
   color: #555;
