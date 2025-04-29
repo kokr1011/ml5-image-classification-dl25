@@ -87,9 +87,15 @@ function checkIfReady() {
   if (modelReady && allImagesLoaded && allClassificationsDone) {
     const loadingDiv = document.getElementById('loading');
     const outerContainer = document.getElementById('outer-container');
+
     if (loadingDiv && outerContainer) {
-      loadingDiv.style.display = 'none';
-      outerContainer.style.display = 'block';
+      // Sanftes Ausblenden
+      loadingDiv.classList.add('fade-out');
+
+      setTimeout(() => {
+        loadingDiv.style.display = 'none';
+        outerContainer.style.display = 'block';
+      }, 1000); // nach der Übergangszeit (1s)
     }
   }
 }
