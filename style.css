@@ -24,6 +24,21 @@ canvas {
   display: block;
 }
 
+#loading {
+  font-size: 20px;
+  color: #555;
+  text-align: center;
+  margin-top: 100px;
+  font-family: Arial, sans-serif;
+}
+#loading h2 {
+  margin-bottom: 10px;
+  color: #1976d2;
+}
+#outer-container {
+  display: none;
+}
+
 /* Haupt-Container */
 #outer-container {
   background-color: #f8f9fb;
