@@ -17,16 +17,31 @@ let previewImg;
 let classifyButton;
 
 function preload() {
-  classifier = ml5.imageClassifier('MobileNet');
-  images.push(loadImage('images/bird.jpg'));
-  images.push(loadImage('images/bike.jpg'));
-  images.push(loadImage('images/labrador.png'));
-  images.push(loadImage('images/Laika.jpg'));
-  images.push(loadImage('images/runner.png'));
-  images.push(loadImage('images/eiffel.png'));
+  const imgPaths = [
+    'images/bird.jpg',
+    'images/bike.jpg',
+    'images/labrador.png',
+    'images/Laika.jpg',
+    'images/runner.png',
+    'images/eiffel.png'
+  ];
+
+  let loadedCount = 0;
+
+  imgPaths.forEach((path, index) => {
+    images[index] = loadImage(path, () => {
+      loadedCount++;
+      if (loadedCount === imgPaths.length) {
+        allImagesLoaded = true;
+        checkIfReady();
+      }
+    });
+  });
 }
 
 function setup() {
+  let allImagesLoaded = false;
+let allClassificationsDone = false;
   noCanvas();
   for (let i = 0; i < images.length; i++) {
     classifier.classify(images[i], function(results) {
@@ -46,16 +61,19 @@ function gotResult(results, index) {
   };
   displayImageAndChart(resultsArray[index], images[index], index);
 
-  classifiedCount++;
+ classifiedCount++;
   if (classifiedCount === images.length) {
-    addUploadSection();
-    
- // Nach dem vollständigen Laden:
-document.getElementById('loading').style.display = 'none';
-document.getElementById('outer-container').style.display = 'block'; 
+    allClassificationsDone = true;
+    checkIfReady();
   }
 }
 
+function checkIfReady() {
+  if (allImagesLoaded && allClassificationsDone) {
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('outer-container').style.display = 'block';
+  }
+}
 
 function displayImageAndChart(results, img, i) {
   const tableBody = document.querySelector('#container tbody');
