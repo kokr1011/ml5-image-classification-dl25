@@ -41,6 +41,12 @@ canvas {
   color: #1976d2;
 }
 
+/* Fade-Out Animation */
+.fade-out {
+  opacity: 0;
+  transition: opacity 1s ease-out;
+}
+
 .spinner {
   margin: 30px auto;
   width: 50px;
